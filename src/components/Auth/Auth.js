@@ -15,7 +15,7 @@ const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
-  const clientId = "57366438895-7ipjaangh3qn68hejkrde5a6m106u6op.apps.googleusercontent.com"; // add it to env later
+  const clientId = process.env.REACT_APP_CLIENT_ID;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
