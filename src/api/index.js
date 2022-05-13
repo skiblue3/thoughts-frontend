@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:5000/api' });
+const API = axios.create({ baseURL: 'https://thoughts-project-03.herokuapp.com/api/'})
+// const API = axios.create({ baseURL: 'http://localhost:5000/api' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
@@ -10,7 +11,6 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-// const url = 'https://thoughts-project-03.herokuapp.com/api/posts';
 
 export const fetchPosts = () => API.get('/posts');
 export const createPost = (newPost) => API.post('/posts', newPost);
