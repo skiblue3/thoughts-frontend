@@ -9,12 +9,16 @@ import jwt_decode from "jwt-decode";
 import useStyles from './styles';
 import Input from './Input';
 import { useNavigate } from 'react-router-dom';
+import { signup, signin } from '../../actions/auth'
 // import Icon from './icon';
+
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignUp, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState(initialState);
   const clientId = process.env.REACT_APP_CLIENT_ID;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,17 +27,23 @@ const Auth = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   }
   
-  const handleSubmit = () => {
-    console.log('hello')
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if(isSignUp) {
+      dispatch(signup(formData, navigate));
+    } else {
+      dispatch(signin(formData, navigate));
+    }
   };
 
-  const handleChange = () => {
-    console.log('hello')
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name] : e.target.value })
   };
 
   const switchMode = () => {
-    setIsSignUp((prevIsSignUp) => !prevIsSignUp);
-    handleShowPassword(false);
+    setIsSignup((prevIsSignup) => !prevIsSignup);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
